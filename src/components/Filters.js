@@ -1,6 +1,9 @@
 import React from 'react'
 
 class Filters extends React.Component {
+  handleChange = (event) => {
+    this.props.onFindPetsClick(event.target.value)
+  }
   render() {
     return (
       <div className="ui form">
@@ -15,7 +18,7 @@ class Filters extends React.Component {
         </div>
 
         <div className="field">
-          <button onChange={this.props.onFindPetsClick} className="ui secondary button">Find pets</button>
+          <button onChange={this.handleChange} className="ui secondary button">Find pets</button>
         </div>
       </div>
     )

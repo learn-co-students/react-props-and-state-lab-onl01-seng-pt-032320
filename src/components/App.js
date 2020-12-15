@@ -21,6 +21,9 @@ class App extends React.Component {
         type: event.target.value
       }
     })
+    if(this.state.filters.type === "all"){
+      
+    }
   }
   render() {
     return (
