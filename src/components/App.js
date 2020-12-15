@@ -1,5 +1,5 @@
 import React from 'react'
-//import getAll from '../data/pets'
+import {getAll, getByType} from '../data/pets'
 import Filters from './Filters'
 import PetBrowser from './PetBrowser'
 
@@ -14,28 +14,28 @@ class App extends React.Component {
       }
     }
   }
-  //this lab solutions make no sense
-  fetchPets = () => {
-    let endpoint = '/api/pets';
-
-    if (this.state.filters.type !== 'all') {
-      endpoint += `?type=${this.state.filters.type}`;
-    }
-
-    fetch(endpoint)
-      .then(res => res.json())
-      .then(pets => this.setState({ pets: pets }));
-  };
-//end stupid stuff
   onFindPetsClick = (event) => {
-    debugger;
     
     if(this.state.filters.type === "all"){
       
-      //fetch("/api/pets")
+      // fetch("/api/pets") //not needed dunno
+      // .then(response => response.json())
+      // .then(data => {
+      //   this.setState({
+      //     pets: getAll()
+      //   })
+      // })
+      this.setState({
+        pets: getAll()
+      })
       
-    }else{ getByType(this.state.filters.type)
-
+    }else{ 
+      // fetch(`/api/pets?type=${this.state.filters.type}`)
+      // .then(response => response.json())
+      // .then(data => getByType(this.state.filters.type))
+      this.setState({
+        pets: getByType(this.state.filters.type)
+      })
     }
   }
   handleChange = (event) => {
@@ -46,6 +46,13 @@ class App extends React.Component {
       filters: {
         type: event.target.value
       }
+    })
+  }
+  handleAdoption = (id) => {
+    debugger;
+    const pickedPet = this.state.pets.find(pet => pet.id === id)
+    pickedPet.setState({
+      isAdopted: true
     })
   }
   render() {
@@ -60,7 +67,7 @@ class App extends React.Component {
               <Filters onChangeType={this.handleChange} onFindPetsClick={this.onFindPetsClick} />
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser onAdoptPet={this.handleAdoption} pets={this.state.pets}/>
             </div>
           </div>
         </div>
