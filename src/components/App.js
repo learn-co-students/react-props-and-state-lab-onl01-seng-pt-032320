@@ -49,11 +49,11 @@ class App extends React.Component {
     })
   }
   handleAdoption = (id) => {
-    debugger;
-    const pickedPet = this.state.pets.find(pet => pet.id === id)
-    pickedPet.setState({
-      isAdopted: true
+    const pets = this.state.pets.map( pet => {
+      return pet.id === id ? {...pet, isAdopted: true} : pet;
     })
+    this.setState({ pets: pets })
+    
   }
   render() {
     return (
