@@ -29,8 +29,8 @@ class App extends React.Component {
       url = url 
     }
     else {
-    const type = this.state.filters.type 
-    url = url + '?type='.concat(type)
+      const type = this.state.filters.type 
+      url = url + '?type='.concat(type)
     }
     fetch(url)
     .then(response => response.json())
@@ -41,10 +41,9 @@ class App extends React.Component {
     })
   }
 
-  onAdoptPet = (event) => {
-    const id = event.target.id 
+  onAdoptPet = (id) => {
     const findPet = this.state.pets.filter(p => p.id === id)
-    findPet.isAdopted = true 
+    findPet[0].isAdopted = true 
   }
 
   render() {
@@ -59,7 +58,7 @@ class App extends React.Component {
               <Filters onChangeType={this.onChangeType} onFindPetsClick= {this.onFindPetsClick}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser pet={this.state.pets} adoptPet={this.onAdoptPet}/>
+              <PetBrowser pets={this.state.pets} onAdoptPet={this.onAdoptPet}/>
             </div>
           </div>
         </div>
